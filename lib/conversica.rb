@@ -1,6 +1,8 @@
-require "conversica/version"
+# frozen_string_literal: true
+
+require 'conversica/version'
+require 'conversica/client'
 
 module Conversica
   class Error < StandardError; end
-  # Your code goes here...
 end

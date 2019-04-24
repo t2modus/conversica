@@ -1,0 +1,48 @@
+AllCops:
+  TargetRubyVersion: 2.5
+
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*.rb'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - 'test/**/*'
+
+Rails:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/AbcSize:
+  Max: 30
+
+Style/CollectionMethods:
+  Enabled: true
+  PreferredMethods:
+    inject: reduce
+
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+Style/RedundantSelf:
+  Enabled: false
+
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_space
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Rails/RefuteMethods:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - test/**/*
