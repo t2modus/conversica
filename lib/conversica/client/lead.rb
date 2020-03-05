@@ -121,7 +121,7 @@ module Conversica
         puts ''
 
         puts 'integer to strings...'
-        hash.transform_values! { |v| v = v.to_s if v.is_a?(Integer) }
+        hash.transform_values! { |v| v = v.is_a?(Integer) ? v.to_s : v }
         puts hash
         puts ''
 
