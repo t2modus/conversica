@@ -52,9 +52,9 @@ module Conversica
         puts ''
 
         puts 'errors...'
-        self.errors.count.zero?
         puts self.errors
         puts ''
+        self.errors.count.zero?
       end
 
       def validate_types
