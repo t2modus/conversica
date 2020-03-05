@@ -84,7 +84,7 @@ module Conversica
 
       # I am perhaps prouder of this method name than I should be
       def conversicate
-        hash = self.attributes.dup
+        hash = self.attributes.dup.with_indifferent_access
 
         # Apparently for conversica:
         # 1) they do not like to receive nil values so we need to remove the nils
