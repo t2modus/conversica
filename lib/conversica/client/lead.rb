@@ -97,10 +97,7 @@ module Conversica
           if lead.valid?
             Configuration.post(lead.conversicate)
           else
-            puts 'lead is not valid'
-            puts 'i should raise error'
             raise ::Conversica::Client::Error, lead.errors.join(', ')
-            puts 'why no raise'
           end
         end
       end
