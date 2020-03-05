@@ -28,36 +28,13 @@ module Conversica
         self.attributes = params.with_indifferent_access
                                 .slice(*PERMITTED_COLUMNS)
                                 .merge(api_version: ENV['CONVERSICA_API_VERSION'])
-        puts "INITIALIZED..."
-        puts self.attributes
-        puts ''
-        puts ''
         self.errors = []
       end
 
       def valid?
-        puts 'valid types...'
         self.validate_types
-        puts self.attributes
-        puts ''
-
-        puts 'valid dates...'
         self.validate_dates
-        puts self.attributes
-        puts ''
-
-        puts 'valid requirements...'
         self.validate_required
-        puts self.attributes
-        puts ''
-
-        puts 'errors...'
-        puts self.errors
-        puts self.errors.inspect
-        puts self.errors.count
-        puts self.errors.count.zero?
-        puts self.errors.blank?
-        puts ''
         self.errors.count.zero?
       end
 
@@ -107,40 +84,23 @@ module Conversica
 
       # I am perhaps prouder of this method name than I should be
       def conversicate
-        puts 'dupping hash...'
         hash = self.attributes.dup
-        puts hash
-        puts ''
 
         # Apparently for conversica:
         # 1) they do not like to receive nil values so we need to remove the nils
         # 2) we also need to convert integers into strings
-        puts 'reject nils...'
         hash.reject! { |_k, v| v.nil? }
-        puts hash
-        puts ''
-
-        puts 'integer to strings...'
         hash.transform_values! { |v| v = v.is_a?(Integer) ? v.to_s : v }
-        puts hash
-        puts ''
-
-        puts 'camelize keys...'
         hash.transform_keys! { |k| k.camelize(:lower) }
-        puts hash
-        puts ''
         hash
       end
 
       class << self
         def create(params)
-          puts 'hey I get here!'
           lead = self.new(params)
           if lead.valid?
-            puts 'sure am valid!!'
             Configuration.post(lead.conversicate)
           else
-            puts 'wut!'
             raise ::Conversica::Client::Error, lead.errors.join(', ')
           end
         end

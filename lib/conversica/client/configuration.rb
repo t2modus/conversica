@@ -36,10 +36,6 @@ module Conversica
         end
 
         def post(payload)
-          puts ''
-          puts 'payload...'
-          puts payload
-          puts "*" * 88
           handle_response(
             instance.connection.post { |request| request.body = MultiJson.dump(payload) }
           )
