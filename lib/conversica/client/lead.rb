@@ -53,6 +53,10 @@ module Conversica
 
         puts 'errors...'
         puts self.errors
+        puts self.errors.inspect
+        puts self.errors.count
+        puts self.errors.count.zero?
+        puts self.errors.blank?
         puts ''
         self.errors.count.zero?
       end
