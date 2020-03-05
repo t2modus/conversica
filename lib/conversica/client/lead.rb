@@ -36,10 +36,25 @@ module Conversica
       end
 
       def valid?
+        puts 'valid types...'
         self.validate_types
+        puts self.attributes
+        puts ''
+
+        puts 'valid dates...'
         self.validate_dates
+        puts self.attributes
+        puts ''
+
+        puts 'valid requirements...'
         self.validate_required
+        puts self.attributes
+        puts ''
+
+        puts 'errors...'
         self.errors.count.zero?
+        puts self.errors
+        puts ''
       end
 
       def validate_types
@@ -88,19 +103,28 @@ module Conversica
 
       # I am perhaps prouder of this method name than I should be
       def conversicate
+        puts 'dupping hash...'
         hash = self.attributes.dup
+        puts hash
+        puts ''
 
         # Apparently for conversica:
         # 1) they do not like to receive nil values so we need to remove the nils
         # 2) we also need to convert integers into strings
+        puts 'reject nils...'
         hash.reject! { |_k, v| v.nil? }
-        hash.transform_values! { |v| v = v.to_s if v.is_a?(Integer) }
-        hash.transform_keys! { |k| k.camelize(:lower) }
-        puts "*" * 88
         puts hash
-        puts "*" * 88
-        puts hash.inspect
-        puts "*" * 88
+        puts ''
+
+        puts 'integer to strings...'
+        hash.transform_values! { |v| v = v.to_s if v.is_a?(Integer) }
+        puts hash
+        puts ''
+
+        puts 'camelize keys...'
+        hash.transform_keys! { |k| k.camelize(:lower) }
+        puts hash
+        puts ''
         hash
       end
 
@@ -109,8 +133,10 @@ module Conversica
           puts 'hey I get here!'
           lead = self.new(params)
           if lead.valid?
+            puts 'sure am valid!!'
             Configuration.post(lead.conversicate)
           else
+            puts 'wut!'
             raise ::Conversica::Client::Error, lead.errors.join(', ')
           end
         end
