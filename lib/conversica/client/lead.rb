@@ -28,6 +28,10 @@ module Conversica
         self.attributes = params.with_indifferent_access
                                 .slice(*PERMITTED_COLUMNS)
                                 .merge(api_version: ENV['CONVERSICA_API_VERSION'])
+        puts "INITIALIZED..."
+        puts self.attributes
+        puts ''
+        puts ''
         self.errors = []
       end
 
@@ -84,15 +88,20 @@ module Conversica
 
       # I am perhaps prouder of this method name than I should be
       def conversicate
-        hash = self.attributes.dup.with_indifferent_access
+        hash = self.attributes.dup
 
         # Apparently for conversica:
         # 1) they do not like to receive nil values so we need to remove the nils
         # 2) we also need to convert integers into strings
         hash.reject! { |_k, v| v.nil? }
         hash.transform_values! { |v| v = v.to_s if v.is_a?(Integer) }
-
-        hash.transform_keys { |k| k.camelize(:lower) }
+        hash.transform_keys! { |k| k.camelize(:lower) }
+        puts "*" * 88
+        puts hash
+        puts "*" * 88
+        puts hash.inspect
+        puts "*" * 88
+        hash
       end
 
       class << self
