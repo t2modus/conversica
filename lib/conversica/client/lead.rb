@@ -105,8 +105,9 @@ module Conversica
       end
 
       class << self
-        def create(options)
-          lead = self.new(options)
+        def create(params)
+          puts 'hey I get here!'
+          lead = self.new(params)
           if lead.valid?
             Configuration.post(lead.conversicate)
           else
