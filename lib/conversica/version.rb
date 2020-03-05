@@ -2,5 +2,5 @@
 
 # This module is the base level entry point for all things conversica
 module Conversica
-  VERSION = '0.1.4'
+  VERSION = '0.1.5'
 end

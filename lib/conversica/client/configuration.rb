@@ -29,7 +29,9 @@ module Conversica
 
       class << self
         def handle_response(response, success_codes = [200])
+          puts 'do I get here'
           raise ::Conversica::Client::Error, 'boop'
+          puts 'why dont I raise that error'
 
           succeeded = success_codes.include? response.status
           return MultiJson.load(response.body.to_s) if succeeded
