@@ -5,8 +5,8 @@ require 'multi_json'
 
 module Conversica
   module Client
-    # This class is responsible for configuring HTTP requests with credentials and headers for sending
-    # data to Conversica's API
+    # This class is responsible for configuring HTTPS requests with the appropriate
+    # credentials and headers for sending data to Conversica's API
     class Configuration
       include Singleton
 
@@ -36,6 +36,9 @@ module Conversica
         end
 
         def post(payload)
+          puts "*" * 88
+          puts payload.inspect
+          puts "*" * 88
           handle_response(
             instance.connection.post { |request| request.body = MultiJson.dump(payload) }
           )
