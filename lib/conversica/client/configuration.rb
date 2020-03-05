@@ -28,10 +28,17 @@ module Conversica
       end
 
       class << self
+        def handle_response(response, success_codes = [200])
+          succeeded = success_codes.include? response.status
+          return MultiJson.load(response.body.to_s) if succeeded
+          msg = "Received an error (#{response.status}) from the Conversica Servers: #{response.body}"
+          raise ::Conversica::Client::Error, msg
+        end
+
         def post(payload)
-          instance.connection.post do |request|
-            request.body = MultiJson.dump(payload)
-          end
+          handle_response(
+            instance.connection.post { |request| request.body = MultiJson.dump(payload) }
+          )
         end
       end
     end
