@@ -97,7 +97,7 @@ module Conversica
           if lead.valid?
             Configuration.post(lead.conversicate)
           else
-            lead.errors
+            raise ::Conversica::Client::Error, lead.errors.join(', ')
           end
         end
       end
