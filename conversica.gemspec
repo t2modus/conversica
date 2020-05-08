@@ -11,7 +11,7 @@ def add_deps(spec)
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-byebug'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 13.0'
 
   spec.add_dependency 'activesupport'
   spec.add_dependency 'faraday'
